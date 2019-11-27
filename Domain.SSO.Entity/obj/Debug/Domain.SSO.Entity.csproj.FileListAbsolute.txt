@@ -1,0 +1,10 @@
+D:\WorkSpace\Demo.SSO\Domain.SSO.Entity\bin\Debug\Domain.SSO.Entity.dll
+D:\WorkSpace\Demo.SSO\Domain.SSO.Entity\bin\Debug\Domain.SSO.Entity.pdb
+D:\WorkSpace\Demo.SSO\Domain.SSO.Entity\obj\Debug\Domain.SSO.Entity.dll
+D:\WorkSpace\Demo.SSO\Domain.SSO.Entity\obj\Debug\Domain.SSO.Entity.pdb
+E:\Demo.SSO\Domain.SSO.Entity\bin\Debug\Domain.SSO.Entity.dll
+E:\Demo.SSO\Domain.SSO.Entity\bin\Debug\Domain.SSO.Entity.pdb
+E:\Demo.SSO\Domain.SSO.Entity\obj\Debug\Domain.SSO.Entity.csprojAssemblyReference.cache
+E:\Demo.SSO\Domain.SSO.Entity\obj\Debug\Domain.SSO.Entity.csproj.CoreCompileInputs.cache
+E:\Demo.SSO\Domain.SSO.Entity\obj\Debug\Domain.SSO.Entity.dll
+E:\Demo.SSO\Domain.SSO.Entity\obj\Debug\Domain.SSO.Entity.pdb

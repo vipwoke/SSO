@@ -1,0 +1,1313 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="EBSDB" Class="dbDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=192.168.0.104;Initial Catalog=EBSDB;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="EBSDBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.c_Areas" Member="c_Areas">
+    <Type Name="c_Areas">
+      <Column Name="AreaID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AreaName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="CompanyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="c_Areas_c_Objects" Member="c_Objects" ThisKey="AreaID" OtherKey="AreaID" Type="c_Objects" />
+      <Association Name="c_Company_c_Areas" Member="c_Company" ThisKey="CompanyID" OtherKey="CompanyID" Type="c_Company" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sys_Website" Member="sys_Website">
+    <Type Name="sys_Website">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Websitename" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.c_Company" Member="c_Company">
+    <Type Name="c_Company">
+      <Column Name="CompanyID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CompanyName" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="OfficialWebsite" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="CustomDomain" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="CompanyType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Province" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="County" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="CompanyCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="c_Company_c_Areas" Member="c_Areas" ThisKey="CompanyID" OtherKey="CompanyID" Type="c_Areas" />
+      <Association Name="c_Company_c_CompanyRoles" Member="c_CompanyRoles" ThisKey="CompanyID" OtherKey="CompanyID" Type="c_CompanyRoles" />
+      <Association Name="c_Company_c_CompanyUser" Member="c_CompanyUser" ThisKey="CompanyID" OtherKey="CompanyID" Type="c_CompanyUser" />
+      <Association Name="c_Company_p_UserCompany" Member="p_UserCompany" ThisKey="CompanyID" OtherKey="CompanyID" Type="p_UserCompany" />
+    </Type>
+  </Table>
+  <Table Name="dbo.c_CompanyRoles" Member="c_CompanyRoles">
+    <Type Name="c_CompanyRoles">
+      <Column Name="CompanyRoleID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CompanyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RoleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Association Name="c_Company_c_CompanyRoles" Member="c_Company" ThisKey="CompanyID" OtherKey="CompanyID" Type="c_Company" IsForeignKey="true" />
+      <Association Name="sys_Role_c_CompanyRoles" Member="sys_Role" ThisKey="RoleID" OtherKey="RoleID" Type="sys_Role" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.c_CompanyUser" Member="c_CompanyUser">
+    <Type Name="c_CompanyUser">
+      <Column Name="CompanyUserID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Account" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Pwd" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="RoleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CompanyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="MobilePhone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="c_CompanyUser_pro_PeopleObj" Member="pro_PeopleObj" ThisKey="CompanyUserID" OtherKey="CompanyUserID" Type="pro_PeopleObj" />
+      <Association Name="c_Company_c_CompanyUser" Member="c_Company" ThisKey="CompanyID" OtherKey="CompanyID" Type="c_Company" IsForeignKey="true" />
+      <Association Name="sys_Role_c_CompanyUser" Member="sys_Role" ThisKey="RoleID" OtherKey="RoleID" Type="sys_Role" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.c_Objects" Member="c_Objects">
+    <Type Name="c_Objects">
+      <Column Name="ObjID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ObjName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Remark" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Province" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="City" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AreaID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GroupID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="c_Objects_pro_ActivityObj" Member="pro_ActivityObj" ThisKey="ObjID" OtherKey="ObjID" Type="pro_ActivityObj" />
+      <Association Name="c_Areas_c_Objects" Member="c_Areas" ThisKey="AreaID" OtherKey="AreaID" Type="c_Areas" IsForeignKey="true" />
+      <Association Name="c_ObjGroup_c_Objects" Member="c_ObjGroup" ThisKey="GroupID" OtherKey="GroupID" Type="c_ObjGroup" IsForeignKey="true" />
+      <Association Name="c_Region_c_Objects" Member="c_Region" ThisKey="Province" OtherKey="ID" Type="c_Region" IsForeignKey="true" />
+      <Association Name="c_Region_c_Objects1" Member="c_Region1" ThisKey="City" OtherKey="ID" Type="c_Region" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.c_ObjGroup" Member="c_ObjGroup">
+    <Type Name="c_ObjGroup">
+      <Column Name="GroupID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="GroupName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="c_ObjGroup_c_Objects" Member="c_Objects" ThisKey="GroupID" OtherKey="GroupID" Type="c_Objects" />
+      <Association Name="p_User_c_ObjGroup" Member="p_User" ThisKey="UserID" OtherKey="UserID" Type="p_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.c_Region" Member="c_Region">
+    <Type Name="c_Region">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RegionName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ParentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Remark" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Association Name="c_Region_c_Objects" Member="c_Objects" ThisKey="ID" OtherKey="Province" Type="c_Objects" />
+      <Association Name="c_Region_c_Objects1" Member="c_Objects1" ThisKey="ID" OtherKey="City" Type="c_Objects" />
+    </Type>
+  </Table>
+  <Table Name="dbo.E_CourseChapter" Member="E_CourseChapter">
+    <Type Name="E_CourseChapter">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CRID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ChapSequence" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ChapTitle" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="ChapAbstract" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="FileType" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="FileAddr" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="FileName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="FileSize" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Remark" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.E_CourseInfo" Member="E_CourseInfo">
+    <Type Name="E_CourseInfo">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CourseTitle" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="CourseAbstract" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Lecturer" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="LecturerIntr" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="ChapNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CourseImg" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="LecturerImg" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="CourSynopsis" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="CourseCost" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SchoolTime" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="Remark" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.E_CourseInform" Member="E_CourseInform">
+    <Type Name="E_CourseInform">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CRID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="InformTitle" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Contents" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="OptionTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IsPush" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PushTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Remark" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DismReason" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="AuditTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="SubmTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.E_CoursePayment" Member="E_CoursePayment">
+    <Type Name="E_CoursePayment">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CRID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SUserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OrderTitle" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="OrderContent" Type="System.String" DbType="VarChar(5000)" CanBeNull="true" />
+      <Column Name="OrderTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="OrderCost" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="IsPay" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PayTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PayType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PayRecordID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.E_CourseProblibrary" Member="E_CourseProblibrary">
+    <Type Name="E_CourseProblibrary">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CRID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CCID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FaultTitle" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="FaultContent" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="FaultProbability" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
+      <Column Name="Category" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FaultAnalyze" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="CorrectAnswer" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="OptionTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Remark" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.E_CourseRegis" Member="E_CourseRegis">
+    <Type Name="E_CourseRegis">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CRID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SUserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RegisTitle" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="RegisContent" Type="System.String" DbType="VarChar(5000)" CanBeNull="true" />
+      <Column Name="RegisTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="SchoolTime" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="RegisCost" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="CourseCost" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="IsPay" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PayTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PayType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PayRecordID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.E_CourseRelease" Member="E_CourseRelease">
+    <Type Name="E_CourseRelease">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CRID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Contents" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="OptionTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DismReason" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="Remark" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="AuditTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="SubmTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CourseState" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.E_CourseTest" Member="E_CourseTest">
+    <Type Name="E_CourseTest">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CRID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CCID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="WorkType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="WorkTitle" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="WorkContent" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="OptionTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsPush" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PushTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="AttachmentAddr" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="ActivityID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuestionaireID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Category" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AttachmentName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Remark" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.E_CourseTestAnswers" Member="E_CourseTestAnswers">
+    <Type Name="E_CourseTestAnswers">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StudID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CRID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CCID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CTID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AnswersContent" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="AnswersTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="AttachmentAddr" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="Category" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CorrectContent" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="CorrTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IsPush" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PushTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="AttachmentName" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="IPAddr" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Remark" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.E_CourseWork" Member="E_CourseWork">
+    <Type Name="E_CourseWork">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CRID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CCID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="WorkType" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="WorkTitle" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="WorkContent" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="OptionTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsPush" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PushTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="AttachmentAddr" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="Remark" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="AttachmentName" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.E_CourseWorkAnswers" Member="E_CourseWorkAnswers">
+    <Type Name="E_CourseWorkAnswers">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StudID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CRID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CCID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CWID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AnswersContent" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="AnswersTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="AttachmentAddr" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="Remark" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="CorrectContent" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="CorrTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IsPush" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PushTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="AttachmentName" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="IPAddr" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.E_MessageBoard" Member="E_MessageBoard">
+    <Type Name="E_MessageBoard">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SUserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TUserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Contents" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="OptionTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IsShield" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReplyContent" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="ReplyTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ShieldReason" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="ShieldTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="RecovReason" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="RecovTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.f_ACategory" Member="f_ACategory">
+    <Type Name="f_ACategory">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Categoryname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Parentid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Ordernum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Intro" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="CategoryLevel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="keywords" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="RoutelistID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Categorytype" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Frontshow" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FixedPageAddr" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.f_Articles" Member="f_Articles">
+    <Type Name="f_Articles">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ACategoryid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Intro" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="Contents" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="UpdateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Origin" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="Thumbnail" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="keywords" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ms_SMSNameList" Member="ms_SMSNameList">
+    <Type Name="ms_SMSNameList">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="MobilePhone" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="SendContent" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="AnswerName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="AddTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ms_SMSRecord" Member="ms_SMSRecord">
+    <Type Name="ms_SMSRecord">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ReceiverPhone" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="SenderPhone" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="SendContent" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="SendResult" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="SendTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ord_ActivitySealed" Member="ord_ActivitySealed">
+    <Type Name="ord_ActivitySealed">
+      <Column Name="AsID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProjectID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ActivityID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuestionaireID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="userID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sBalance" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="sIntegral" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="stime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ord_Invoices" Member="ord_Invoices">
+    <Type Name="ord_Invoices">
+      <Column Name="InvoiceID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="InvoiceTitle" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Money" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Recipients" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="MobilePhone" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Association Name="ord_Invoices_ord_OrderInvoice" Member="ord_OrderInvoice" ThisKey="InvoiceID" OtherKey="InvoiceID" Type="ord_OrderInvoice" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ord_OrderInvoice" Member="ord_OrderInvoice">
+    <Type Name="ord_OrderInvoice">
+      <Column Name="OrderInvoiceID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrderID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InvoiceID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="ord_Invoices_ord_OrderInvoice" Member="ord_Invoices" ThisKey="InvoiceID" OtherKey="InvoiceID" Type="ord_Invoices" IsForeignKey="true" />
+      <Association Name="ord_Orders_ord_OrderInvoice" Member="ord_Orders" ThisKey="OrderID" OtherKey="OrderID" Type="ord_Orders" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ord_orderPay" Member="ord_orderPay">
+    <Type Name="ord_orderPay">
+      <Column Name="orderPayID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="out_trade_no" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="total_amout" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="state" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="userID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ordertime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="paytime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="subject" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ordertype" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="remark" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="paytype" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="fileID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="refeUID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="total_score" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ord_Orders" Member="ord_Orders">
+    <Type Name="ord_Orders">
+      <Column Name="OrderID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrderNum" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="OrderTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Money" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OrderType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OrderDetail" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ServiceID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ActivityID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OrdStatus" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="ord_Orders_ord_OrderInvoice" Member="ord_OrderInvoice" ThisKey="OrderID" OtherKey="OrderID" Type="ord_OrderInvoice" />
+      <Association Name="ord_Services_ord_Orders" Member="ord_Services" ThisKey="ServiceID" OtherKey="ServiceID" Type="ord_Services" IsForeignKey="true" />
+      <Association Name="p_User_ord_Orders" Member="p_User" ThisKey="UserID" OtherKey="UserID" Type="p_User" IsForeignKey="true" />
+      <Association Name="pro_Activity_ord_Orders" Member="pro_Activity" ThisKey="ActivityID" OtherKey="ActivityID" Type="pro_Activity" IsForeignKey="true" />
+      <Association Name="sys_Type_ord_Orders" Member="sys_Type" ThisKey="OrdStatus" OtherKey="TypeID" Type="sys_Type" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ord_Services" Member="ord_Services">
+    <Type Name="ord_Services">
+      <Column Name="ServiceID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ServiceName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Association Name="ord_Services_ord_Orders" Member="ord_Orders" ThisKey="ServiceID" OtherKey="ServiceID" Type="ord_Orders" />
+    </Type>
+  </Table>
+  <Table Name="dbo.p_User" Member="p_User">
+    <Type Name="p_User">
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Account" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Pwd" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="UserState" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Sex" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LastLoginTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Province" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="County" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="UserType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RoleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Balance" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="EmailValidate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MobilePhone" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="MobileValidate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Sms" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="mail" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsTryout" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Expire" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="integral" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TradeID" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="TradeName" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Association Name="p_User_c_ObjGroup" Member="c_ObjGroup" ThisKey="UserID" OtherKey="UserID" Type="c_ObjGroup" />
+      <Association Name="p_User_ord_Orders" Member="ord_Orders" ThisKey="UserID" OtherKey="UserID" Type="ord_Orders" />
+      <Association Name="p_User_p_UserCompany" Member="p_UserCompany" ThisKey="UserID" OtherKey="UserID" Type="p_UserCompany" />
+      <Association Name="p_User_p_UserMessage" Member="p_UserMessage" ThisKey="UserID" OtherKey="UserID" Type="p_UserMessage" />
+      <Association Name="p_User_p_UserSpace" Member="p_UserSpace" ThisKey="UserID" OtherKey="UserID" Type="p_UserSpace" />
+      <Association Name="sys_Role_p_User" Member="sys_Role" ThisKey="RoleID" OtherKey="RoleID" Type="sys_Role" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.p_UserCompany" Member="p_UserCompany">
+    <Type Name="p_UserCompany">
+      <Column Name="UserCompanyID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CompanyID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="c_Company_p_UserCompany" Member="c_Company" ThisKey="CompanyID" OtherKey="CompanyID" Type="c_Company" IsForeignKey="true" />
+      <Association Name="p_User_p_UserCompany" Member="p_User" ThisKey="UserID" OtherKey="UserID" Type="p_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.p_UserMessage" Member="p_UserMessage">
+    <Type Name="p_UserMessage">
+      <Column Name="MessageID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="MsgContent" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="SendTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IsRead" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReplyContent" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="ReplyTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ReplyFile" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Flag" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FMsgID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SendUserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsReply" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="p_User_p_UserMessage" Member="p_User" ThisKey="UserID" OtherKey="UserID" Type="p_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.p_UserSpace" Member="p_UserSpace">
+    <Type Name="p_UserSpace">
+      <Column Name="UserSpaceID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SpaceSize" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="FreeSpace" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="SpaceType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="p_User_p_UserSpace" Member="p_User" ThisKey="UserID" OtherKey="UserID" Type="p_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.p_VisitActivity" Member="p_VisitActivity">
+    <Type Name="p_VisitActivity">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="VisitorID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ActivityID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FillNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.p_Visitor" Member="p_Visitor">
+    <Type Name="p_Visitor">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="VisCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="VisName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="pwd" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="sex" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Province" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="County" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="MobilePhone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.pro_Activity" Member="pro_Activity">
+    <Type Name="pro_Activity">
+      <Column Name="ActivityID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ActivityName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="BeginTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="SampleSize" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="AddTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ActivityState" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="ProjectID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NeedLogin" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RewardType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RewardNum" Type="System.Decimal" DbType="Decimal(10,0)" CanBeNull="true" />
+      <Column Name="NeedCheck" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ShowArea" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsShowIndex" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PCAnswerUrl" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="PhAnswerUrl" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="ReOpinion" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="AppAnswerUrl" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Association Name="pro_Activity_ord_Orders" Member="ord_Orders" ThisKey="ActivityID" OtherKey="ActivityID" Type="ord_Orders" />
+      <Association Name="pro_Activity_pro_ActivityObj" Member="pro_ActivityObj" ThisKey="ActivityID" OtherKey="ActivityID" Type="pro_ActivityObj" />
+      <Association Name="pro_Activity_pro_ProjectRole" Member="pro_ProjectRole" ThisKey="ActivityID" OtherKey="ActivityID" Type="pro_ProjectRole" />
+      <Association Name="pro_ProjectInfo_pro_Activity" Member="pro_ProjectInfo" ThisKey="ProjectID" OtherKey="ProjectID" Type="pro_ProjectInfo" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.pro_ActivityObj" Member="pro_ActivityObj">
+    <Type Name="pro_ActivityObj">
+      <Column Name="ActivityObjID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ActivityID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ObjID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="WarningValue" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Association Name="pro_ActivityObj_pro_PeopleObj" Member="pro_PeopleObj" ThisKey="ActivityObjID" OtherKey="ActivityObjID" Type="pro_PeopleObj" />
+      <Association Name="c_Objects_pro_ActivityObj" Member="c_Objects" ThisKey="ObjID" OtherKey="ObjID" Type="c_Objects" IsForeignKey="true" />
+      <Association Name="pro_Activity_pro_ActivityObj" Member="pro_Activity" ThisKey="ActivityID" OtherKey="ActivityID" Type="pro_Activity" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.pro_ActivityQues" Member="pro_ActivityQues">
+    <Type Name="pro_ActivityQues">
+      <Column Name="ActivityQuesID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ActivityID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuestionaireID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.pro_PeopleObj" Member="pro_PeopleObj">
+    <Type Name="pro_PeopleObj">
+      <Column Name="PeopleObjID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ActivityObjID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CompanyUserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="c_CompanyUser_pro_PeopleObj" Member="c_CompanyUser" ThisKey="CompanyUserID" OtherKey="CompanyUserID" Type="c_CompanyUser" IsForeignKey="true" />
+      <Association Name="pro_ActivityObj_pro_PeopleObj" Member="pro_ActivityObj" ThisKey="ActivityObjID" OtherKey="ActivityObjID" Type="pro_ActivityObj" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.pro_ProjectInfo" Member="pro_ProjectInfo">
+    <Type Name="pro_ProjectInfo">
+      <Column Name="ProjectID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProjectTitle" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="BeginTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ProjectNature" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProjectType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IndustryID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AccountID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Association Name="pro_ProjectInfo_pro_Activity" Member="pro_Activity" ThisKey="ProjectID" OtherKey="ProjectID" Type="pro_Activity" />
+    </Type>
+  </Table>
+  <Table Name="dbo.pro_ProjectRole" Member="pro_ProjectRole">
+    <Type Name="pro_ProjectRole">
+      <Column Name="PRoleID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RoleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ActivityID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Association Name="pro_Activity_pro_ProjectRole" Member="pro_Activity" ThisKey="ActivityID" OtherKey="ActivityID" Type="pro_Activity" IsForeignKey="true" />
+      <Association Name="sys_Role_pro_ProjectRole" Member="sys_Role" ThisKey="RoleID" OtherKey="RoleID" Type="sys_Role" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.q_Answers" Member="q_Answers">
+    <Type Name="q_Answers">
+      <Column Name="AnswerText" Type="System.String" DbType="NVarChar(3000)" CanBeNull="true" />
+      <Column Name="AnswerOption" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TablePosition" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="FileUrl" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserIP" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="AnswerTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IsEnabled" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuesID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserFlag" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="ObjID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ActivityID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="WebID" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MOptionID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AudioFile" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="SortNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.q_AnswerScore" Member="q_AnswerScore">
+    <Type Name="q_AnswerScore">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ActivityID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuesID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserIP" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="UserFlag" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Score" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="OptionTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.q_Options" Member="q_Options">
+    <Type Name="q_Options">
+      <Column Name="OptionID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RowTitle" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="ColumnTitle" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="TextFormat" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="POptionID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OptionTurn" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuesID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Pic" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Dec" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="AllowFillIn" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsRequired" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GroupName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="IsDefault" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RowGoal" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="IsAnswer" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Sequence" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="huchi" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="verify" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="minword" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="maxword" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Answer" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="AnswerTip" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="IsScore" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IsPictext" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.q_Options2" Member="q_Options2">
+    <Type Name="q_Options2">
+      <Column Name="MOptionID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MQuesID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MRowTitle" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="MRowTitle2" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="MColumnTitle" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MSeq" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.q_QModule" Member="q_QModule">
+    <Type Name="q_QModule">
+      <Column Name="QModuleID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="QModuleName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="ParentID" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="QID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Sequence" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.q_QuesAnswReupload" Member="q_QuesAnswReupload">
+    <Type Name="q_QuesAnswReupload">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ActivityID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuestionaireID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AnswerTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="OptionTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Contents" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="IsPush" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PushTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Remark" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DismReason" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="AuditTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="SubmTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UserFlag" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="UserIP" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="AUserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ObjID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RespondentsID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.q_QuesInform" Member="q_QuesInform">
+    <Type Name="q_QuesInform">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ActivityID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuestionaireID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="InformTitle" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="InfoContent" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="OptionTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DismReason" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="IsPush" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PushTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Remark" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="AuditTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="SubmTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.q_QuesInquiry" Member="q_QuesInquiry">
+    <Type Name="q_QuesInquiry">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Contact" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ContactInfo" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="QuestionsNumbs" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SampleNumbs" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="cbFapiao" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="OthDescription" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="OptionTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="isReply" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ActualPrice" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="ReplyTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ReplyNote" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="ActivityID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuestionaireID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.q_QuesReport" Member="q_QuesReport">
+    <Type Name="q_QuesReport">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ActivityID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuestionaireID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RepTitle" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="RepContent" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="OptionTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DismReason" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="AuditTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Remark" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="SubmTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.q_QuesScrDeta" Member="q_QuesScrDeta">
+    <Type Name="q_QuesScrDeta">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="QuesScrID" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="OptionID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Count" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FinishCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SubmitCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AdoptCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.q_QuesScree" Member="q_QuesScree">
+    <Type Name="q_QuesScree">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="QID" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="QuesID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SerNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="Money" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="ScrType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CrossNum" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Counts" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Remark" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.q_Questionaire" Member="q_Questionaire">
+    <Type Name="q_Questionaire">
+      <Column Name="QuestionaireID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="QuestionaireType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuestionaireState" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatorID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsHideQNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsRandom" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsIDCode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsIPLimit" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IPLimitCycle" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IPLimitTimes" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsComputerLimit" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ComputerLimitCycle" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ComputerLimitTimes" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QTitleIsShow" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AnswerCountIsShow" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LastPageIsShow" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProgressBar" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProgressType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SubText" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="LastPageText" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="NextPageText" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="BgImg" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="FinishTurnUrl" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="FinishWord" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="IsOffContinue" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsPreAnswer" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QCss" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="QuesType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CallNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BrowseNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsManuReview" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QRcodeImg" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="QuesCate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.q_Questions" Member="q_Questions">
+    <Type Name="q_Questions">
+      <Column Name="QuesID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="QTitle" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="QType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="IsRequested" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QTurn" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MinWordSize" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MaxWordSize" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Sequence" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MaxNum" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="MinNum" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Tips" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="FileType" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="FileSize" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="IsPage" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PDescription" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="QModule" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QID" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="QGoal" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="VerificationMode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IsZhenBieOrTimer" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="numperrow" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="randomChoice" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="HasJump" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="lowLimit" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="upLimit" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="HasValue" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Height" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Width" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DefaultValue" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Norepeat" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Underline" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SMSvalidation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AnswerTips" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="SeqNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Answers" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="IsGetScore" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="relation" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="AnswerTime" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Difficulty" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MinTime" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MaxTime" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.q_QuesTitleVerify" Member="q_QuesTitleVerify">
+    <Type Name="q_QuesTitleVerify">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="QID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuesID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Promessage" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.q_QuesType" Member="q_QuesType">
+    <Type Name="q_QuesType">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TypeName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.q_Respondents" Member="q_Respondents">
+    <Type Name="q_Respondents">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserIP" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="UserFlag" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ActID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ObjID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AnswerTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ClientSource" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Examine" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Reward" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="IsZhenBie" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Scores" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="submitdata" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="AudioUrl" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Longitude" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Latitude" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.q_TQModule" Member="q_TQModule">
+    <Type Name="q_TQModule">
+      <Column Name="TQModuleID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TQModuleName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="TQMDescription" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="PTQModule" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Sequence" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="TQID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.q_TQQues" Member="q_TQQues">
+    <Type Name="q_TQQues">
+      <Column Name="TQQuesID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TQID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TQModuleID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TQuesID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Sequence" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.q_TQues" Member="q_TQues">
+    <Type Name="q_TQues">
+      <Column Name="TQuesID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="QTitle" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="QuesType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QDescription" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="IsRequested" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QTurn" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MinWordCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MaxWordCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Sequence" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MaxSize" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="MinSize" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Tips" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="UpFileType" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="UpFileMaxSize" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="IsPage" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PDescription" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="QGoal" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.q_TQuesOption" Member="q_TQuesOption">
+    <Type Name="q_TQuesOption">
+      <Column Name="TQOptionID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RowTitle" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="ColumnTitle" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="TextFormat" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="POptionID" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="OptionTurn" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuesID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Pic" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Dec" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="AllowFillIn" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsRequired" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GroupName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="IsDefault" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RowGoal" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="IsAnswer" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.q_TQuestionaire" Member="q_TQuestionaire">
+    <Type Name="q_TQuestionaire">
+      <Column Name="TQID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="QTitle" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="QType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QDescription" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="IsOpen" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.S_GroupInfo" Member="S_GroupInfo">
+    <Type Name="S_GroupInfo">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="GroupName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.S_ParaSet" Member="S_ParaSet">
+    <Type Name="S_ParaSet">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TypeName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SetNum" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.S_PersonnelInfo" Member="S_PersonnelInfo">
+    <Type Name="S_PersonnelInfo">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PerName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Sex" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="GroupID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.s_RoleLimit" Member="s_RoleLimit">
+    <Type Name="s_RoleLimit">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RoleID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TypeName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Count" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.S_SendContent" Member="S_SendContent">
+    <Type Name="S_SendContent">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Contents" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="ApplyTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ApplyState" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReplyContent" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="GroupIDs" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ExpectNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UseNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.S_SendError" Member="S_SendError">
+    <Type Name="S_SendError">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SendTitle" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="SendContent" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="UserName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Receiver" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SendTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ExecContent" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.S_SendLimit" Member="S_SendLimit">
+    <Type Name="S_SendLimit">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SendNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Remark" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.S_SendRecord" Member="S_SendRecord">
+    <Type Name="S_SendRecord">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Receiver" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ContentID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SendTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="SendState" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sys_Admin" Member="sys_Admin">
+    <Type Name="sys_Admin">
+      <Column Name="AdminID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Account" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Pwd" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="AdminName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="DepartmentID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Sex" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RoleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="sys_Role_sys_Admin" Member="sys_Role" ThisKey="RoleID" OtherKey="RoleID" Type="sys_Role" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sys_Authority" Member="sys_Authority">
+    <Type Name="sys_Authority">
+      <Column Name="AuthID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AuthName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="AuthUrl" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="AuthType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AuthDescription" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="AuthIcon" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="AuthSort" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ParentID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AuthLevel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FontIcon" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="AuthEName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="sys_Authority_sys_RoleAuth" Member="sys_RoleAuth" ThisKey="AuthID" OtherKey="AuthID" Type="sys_RoleAuth" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sys_blackList" Member="sys_blackList">
+    <Type Name="sys_blackList">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="keyword" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="blackname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="blacktime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="flag" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sys_CustTry" Member="sys_CustTry">
+    <Type Name="sys_CustTry">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CustName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="PhoneNum" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LeaveMess" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Bz" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Company" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Demand" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="LRdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CZdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Response" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sys_Duration" Member="sys_Duration">
+    <Type Name="sys_Duration">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DurationName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="DurationNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DurationUnit" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="Discount" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="DiscountPrice" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sys_EmailException" Member="sys_EmailException">
+    <Type Name="sys_EmailException">
+      <Column Name="EExceptionID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ExceptionType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TreatMethod" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ETemplateID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sys_EmailRecord" Member="sys_EmailRecord">
+    <Type Name="sys_EmailRecord">
+      <Column Name="ERecordID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SendAccount" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="RecieveAccount" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="RecordTitle" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="RecordContent" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="SendTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="SendResult" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sys_EmailTemplate" Member="sys_EmailTemplate">
+    <Type Name="sys_EmailTemplate">
+      <Column Name="ETemplateID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="TemplateType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TContent" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="EffectiveTime" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SendType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SendFrequency" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AddTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sys_filedown" Member="sys_filedown">
+    <Type Name="sys_filedown">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="userID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="fileID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="filedowntime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sys_fileupload" Member="sys_fileupload">
+    <Type Name="sys_fileupload">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="filename" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="files" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="filetime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="amount" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="costtype" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sys_Label" Member="sys_Label">
+    <Type Name="sys_Label">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LabelName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="LabelContent" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Sort" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ParentID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TreeLevel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sys_Logs" Member="sys_Logs">
+    <Type Name="sys_Logs">
+      <Column Name="LogID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LogTitle" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="LogContent" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="RecordTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Account" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="LogType" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sys_MoneyAccount" Member="sys_MoneyAccount">
+    <Type Name="sys_MoneyAccount">
+      <Column Name="AccountID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AccountType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Account" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="PayKey" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="PubKey" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sys_Pagerecord" Member="sys_Pagerecord">
+    <Type Name="sys_Pagerecord">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Htname" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Ipaddr" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Province" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Acctime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Visnum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sys_QuesPriceset" Member="sys_QuesPriceset">
+    <Type Name="sys_QuesPriceset">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TypeName" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="ParentID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(18,1)" CanBeNull="true" />
+      <Column Name="Sequence" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sys_Role" Member="sys_Role">
+    <Type Name="sys_Role">
+      <Column Name="RoleID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RoleName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="RoleDescription" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Association Name="sys_Role_c_CompanyRoles" Member="c_CompanyRoles" ThisKey="RoleID" OtherKey="RoleID" Type="c_CompanyRoles" />
+      <Association Name="sys_Role_c_CompanyUser" Member="c_CompanyUser" ThisKey="RoleID" OtherKey="RoleID" Type="c_CompanyUser" />
+      <Association Name="sys_Role_p_User" Member="p_User" ThisKey="RoleID" OtherKey="RoleID" Type="p_User" />
+      <Association Name="sys_Role_pro_ProjectRole" Member="pro_ProjectRole" ThisKey="RoleID" OtherKey="RoleID" Type="pro_ProjectRole" />
+      <Association Name="sys_Role_sys_Admin" Member="sys_Admin" ThisKey="RoleID" OtherKey="RoleID" Type="sys_Admin" />
+      <Association Name="sys_Role_sys_RoleAuth" Member="sys_RoleAuth" ThisKey="RoleID" OtherKey="RoleID" Type="sys_RoleAuth" />
+      <Association Name="sys_Role_sys_RoleQues" Member="sys_RoleQues" ThisKey="RoleID" OtherKey="RoleID" Type="sys_RoleQues" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sys_RoleAuth" Member="sys_RoleAuth">
+    <Type Name="sys_RoleAuth">
+      <Column Name="RoleAuthID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IsShow" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AuthOperation" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="AuthID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RoleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="sys_Authority_sys_RoleAuth" Member="sys_Authority" ThisKey="AuthID" OtherKey="AuthID" Type="sys_Authority" IsForeignKey="true" />
+      <Association Name="sys_Role_sys_RoleAuth" Member="sys_Role" ThisKey="RoleID" OtherKey="RoleID" Type="sys_Role" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sys_RoleQues" Member="sys_RoleQues">
+    <Type Name="sys_RoleQues">
+      <Column Name="RoleQuesID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RoleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="QuesType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsShow" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="Sequence" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Tips" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Association Name="sys_Role_sys_RoleQues" Member="sys_Role" ThisKey="RoleID" OtherKey="RoleID" Type="sys_Role" IsForeignKey="true" />
+      <Association Name="sys_Type_sys_RoleQues" Member="sys_Type" ThisKey="QuesType" OtherKey="TypeID" Type="sys_Type" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sys_routelist" Member="sys_routelist">
+    <Type Name="sys_routelist">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Routeadd" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Pageadd" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Parentid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Routelevel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sys_SiteInfo" Member="sys_SiteInfo">
+    <Type Name="sys_SiteInfo">
+      <Column Name="SiteID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SiteName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="LOGO" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Keywords" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="ICP" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="CopyrightInfo" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sys_TimeLimit" Member="sys_TimeLimit">
+    <Type Name="sys_TimeLimit">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TypeName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Time" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sys_Type" Member="sys_Type">
+    <Type Name="sys_Type">
+      <Column Name="TypeID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TypeName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="ParentType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsShow" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Sequence" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Logo" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Association Name="sys_Type_ord_Orders" Member="ord_Orders" ThisKey="TypeID" OtherKey="OrdStatus" Type="ord_Orders" />
+      <Association Name="sys_Type_sys_RoleQues" Member="sys_RoleQues" ThisKey="TypeID" OtherKey="QuesType" Type="sys_RoleQues" />
+    </Type>
+  </Table>
+</Database>
